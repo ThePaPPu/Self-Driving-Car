@@ -3,7 +3,7 @@ import pygame
 pygame.init()
 
 window = pygame.display.set_mode((1200, 400))
-track = pygame.image.load('track1.png')
+track = pygame.image.load('track2.png')
 car = pygame.image.load('tesla.png')
 car = pygame.transform.scale(car, (30, 60))
 car_x = 152
@@ -27,6 +27,7 @@ while drive:
     
     if upper_pixel == 255:
         car_y = car_y - 2
+        
     window.blit(track, (0, 0))
     window.blit(car, (car_x, car_y))
     pygame.draw.circle(window, (0, 255, 0), (camera_x, camera_y), 5, 5)
