@@ -3,7 +3,7 @@ import pygame
 pygame.init()
 
 window = pygame.display.set_mode((1200, 400))
-track = pygame.image.load('track4.png')
+track = pygame.image.load('track5.png')
 car = pygame.image.load('tesla.png')
 car = pygame.transform.scale(car, (30, 60))
 car_x = 152
@@ -43,7 +43,18 @@ while drive:
         camera_y_offset = 30
         car = pygame.transform.rotate(car, -90)
         
-        
+    elif direction == 'down' and down_pixel != 255 and right_pixel == 255:
+        direction = 'right'
+        car_y = car_y + 30
+        camera_x_offset = 30
+        camera_y_offset = 0
+        car = pygame.transform.rotate(car, 90)
+    
+    elif direction == 'right' and right_pixel != 255 and upper_pixel ==255:
+        direction = 'upper'
+        car_x = car_x + 30
+        camera_x_offset = 0
+        car = pygame.transform.rotate(car, 90)
         
         
     #drive
