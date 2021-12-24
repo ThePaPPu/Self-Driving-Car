@@ -3,12 +3,14 @@ import pygame
 pygame.init()
 
 window = pygame.display.set_mode((1200, 400))
-track = pygame.image.load('track2.png')
+track = pygame.image.load('track3.png')
 car = pygame.image.load('tesla.png')
 car = pygame.transform.scale(car, (30, 60))
 car_x = 152
 car_y = 280
+camera_x_offset = 0
 focal_distance = 25
+direction = 'upper'
 drive = True
 clock = pygame.time.Clock()
 
@@ -18,15 +20,27 @@ while drive:
         if event.type == pygame.QUIT:
             drive = False
     
-    camera_x = car_x + 15
+    camera_x = car_x + camera_x_offset + 15
     camera_y = car_y + 15
     
     #detect road
     upper_pixel = window.get_at((camera_x, camera_y - focal_distance))[0]
-    print(upper_pixel)
+    right_pixel = window.get_at((camera_x + focal_distance, camera_y))[0]
+    print(upper_pixel, right_pixel)
     
-    if upper_pixel == 255:
+    #take turn or change direction
+    if direction == 'upper' and upper_pixel != 255 and right_pixel == 255:
+        direction = 'right'
+        camera_x_offset = 30
+        car = pygame.transform.rotate(car, -90)
+        
+        
+    #drive
+    if direction == 'upper' and upper_pixel == 255:
         car_y = car_y - 2
+        
+    if direction == 'right' and right_pixel == 255:
+        car_x = car_x + 2
         
     window.blit(track, (0, 0))
     window.blit(car, (car_x, car_y))
