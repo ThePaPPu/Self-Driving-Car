@@ -1,6 +1,7 @@
 import pygame
 
 pygame.init()
+pygame.display.set_caption('Self Driving Car')
 
 window = pygame.display.set_mode((1200, 400))
 track = pygame.image.load('track6.png')
@@ -28,7 +29,7 @@ while drive:
     upper_pixel = window.get_at((camera_x, camera_y - focal_distance))[0]
     right_pixel = window.get_at((camera_x + focal_distance, camera_y))[0]
     down_pixel = window.get_at((camera_x , camera_y + focal_distance))[0]
-    print(upper_pixel, right_pixel, down_pixel)
+    print('Upper Pixel=', upper_pixel, 'Right Pixel=', right_pixel, 'Down Pixel=', down_pixel)
     
     #take turn or change direction
     if direction == 'upper' and upper_pixel != 255 and right_pixel == 255:
